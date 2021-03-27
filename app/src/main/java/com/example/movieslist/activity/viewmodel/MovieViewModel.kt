@@ -6,10 +6,9 @@ import com.example.movieslist.networking.response.MovieResponse
 import com.example.movieslist.repository.MoviesRepository
 import kotlinx.coroutines.coroutineScope
 import retrofit2.Response
-import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
-class MovieViewModel @Inject constructor(private val moviesRepository: MoviesRepository): ViewModel() {
+class MovieViewModel() : ViewModel() {
+    var moviesRepository = MoviesRepository()
 
     private var _mainMovie = MutableLiveData<MovieResponse>()
     val mainMovie: MutableLiveData<MovieResponse>
@@ -25,7 +24,7 @@ class MovieViewModel @Inject constructor(private val moviesRepository: MoviesRep
             val response = moviesRepository.getMainMovie()
 
             if (response.isSuccessful){
-                mainMovie.value = response.body()
+                _mainMovie.postValue( response.body())
             } else {
                _error.value = response
             }

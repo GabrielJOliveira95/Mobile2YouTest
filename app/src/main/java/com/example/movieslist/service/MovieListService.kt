@@ -7,9 +7,9 @@ import retrofit2.http.*
 
 interface MovieListService {
 
-   @GET("")
+   @GET("{movie_id}")
    suspend fun getMainMovie(
-      @Query("api_key") api_key: String = AppConstants.APIKEY,
-      @Path("movie_id") movie_id: Int = 2,
+      @Path("movie_id") movie_id: Int = 550,
+      @Query("api_key") api_key: String = AppConstants.APIKEY
    ): Response<MovieResponse>
 }

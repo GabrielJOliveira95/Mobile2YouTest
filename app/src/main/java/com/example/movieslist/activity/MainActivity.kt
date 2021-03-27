@@ -1,33 +1,60 @@
 package com.example.movieslist.activity
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieslist.R
 import com.example.movieslist.activity.viewmodel.MovieViewModel
 import com.example.movieslist.adpter.AdpterMovie
-import com.example.movieslist.networking.Retrofit
-import javax.inject.Inject
+import com.example.movieslist.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MovieViewModel
     lateinit var adpterMovie: AdpterMovie
+    lateinit var binding: ActivityMainBinding
+    private val scope = CoroutineScope(newSingleThreadContext("scope"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val viewRoot = binding.root
+        setContentView(viewRoot)
         viewModel =  ViewModelProvider(this).get(MovieViewModel::class.java)
 
-        initObservables()
+
+        initScope()
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        initObservables()
+    }
+
+    fun initScope(){
+        scope.launch {
+            viewModel.getMainMovie()
+        }
+    }
+
     fun initObservables(){
+
         viewModel.mainMovie.observe(this, {
-            adpterMovie = AdpterMovie(it)
+            if (it != null){
+            binding.mainMovieTitle.text = it.title
+            binding.likesMainMovieTv.text = "${it.vote_count} ${getString(R.string.likes)}"
+            binding.popularutyTv.text = "${it.popularity} ${getString(R.string.views)}"
+
+            }
+        })
+
+        viewModel.erro.observe(this, {
+            Toast.makeText(applicationContext, it.message(), Toast.LENGTH_LONG).show()
         })
     }
 
