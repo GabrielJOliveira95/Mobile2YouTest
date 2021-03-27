@@ -18,16 +18,30 @@ class MovieViewModel() : ViewModel() {
     val erro: MutableLiveData<Response<MovieResponse>>
         get() = _error
 
+    private var _allMovie = MutableLiveData<List<MovieResponse>>()
+    val allMovie: MutableLiveData<List<MovieResponse>>
+        get() = _allMovie
 
-    suspend fun getMainMovie(){
+    suspend fun getMainMovie() {
         coroutineScope {
             val response = moviesRepository.getMainMovie()
 
-            if (response.isSuccessful){
-                _mainMovie.postValue( response.body())
+            if (response?.isSuccessful!!) {
+                _mainMovie.postValue(response.body())
             } else {
-               _error.value = response
+                _error.value = response
             }
+        }
+    }
+
+    suspend fun getAllMovie() {
+        coroutineScope {
+            val response = moviesRepository.getAllMovies()
+
+            if (response.isSuccessful){
+                _allMovie.postValue(response.body())
+            }
+
         }
     }
 }

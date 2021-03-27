@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.movieslist.R
 import com.example.movieslist.activity.viewmodel.MovieViewModel
 import com.example.movieslist.adpter.AdpterMovie
+import com.example.movieslist.constants.AppConstants
 import com.example.movieslist.databinding.ActivityMainBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     fun initScope(){
         scope.launch {
             viewModel.getMainMovie()
+            viewModel.getAllMovie()
         }
     }
 
@@ -49,9 +52,12 @@ class MainActivity : AppCompatActivity() {
             binding.mainMovieTitle.text = it.title
             binding.likesMainMovieTv.text = "${it.vote_count} ${getString(R.string.likes)}"
             binding.popularutyTv.text = "${it.popularity} ${getString(R.string.views)}"
+            Picasso.get().load(AppConstants.BASEURLPHOTO + it.backdrop_path).into(binding.mainMovieLogo)
 
             }
         })
+
+
 
         viewModel.erro.observe(this, {
             Toast.makeText(applicationContext, it.message(), Toast.LENGTH_LONG).show()
