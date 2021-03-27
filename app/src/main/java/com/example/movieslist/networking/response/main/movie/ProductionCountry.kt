@@ -1,4 +1,4 @@
-package com.example.movieslist.networking.response
+package com.example.movieslist.networking.response.main.movie
 
 data class ProductionCountry(
     val iso_3166_1: String,

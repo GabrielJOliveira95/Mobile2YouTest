@@ -2,7 +2,8 @@ package com.example.movieslist.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.movieslist.networking.response.MovieResponse
+import com.example.movieslist.networking.response.allmovies.AllMoviesResponse
+import com.example.movieslist.networking.response.main.movie.MovieResponse
 import com.example.movieslist.repository.MoviesRepository
 import kotlinx.coroutines.coroutineScope
 import retrofit2.Response
@@ -18,8 +19,8 @@ class MovieViewModel() : ViewModel() {
     val erro: MutableLiveData<Response<MovieResponse>>
         get() = _error
 
-    private var _allMovie = MutableLiveData<List<MovieResponse>>()
-    val allMovie: MutableLiveData<List<MovieResponse>>
+    private var _allMovie = MutableLiveData<AllMoviesResponse>()
+    val allMovie: MutableLiveData<AllMoviesResponse>
         get() = _allMovie
 
     suspend fun getMainMovie() {

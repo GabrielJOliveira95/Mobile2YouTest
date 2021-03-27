@@ -1,4 +1,4 @@
-package com.example.movieslist.networking.response
+package com.example.movieslist.networking.response.main.movie
 
 data class SpokenLanguage(
     val english_name: String,
