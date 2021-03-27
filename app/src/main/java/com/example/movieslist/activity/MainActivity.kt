@@ -1,39 +1,34 @@
 package com.example.movieslist.activity
+
 import android.os.Bundle
-import android.widget.Adapter
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.movieslist.R
 import com.example.movieslist.activity.viewmodel.MovieViewModel
 import com.example.movieslist.adpter.AdpterMovie
 import com.example.movieslist.constants.AppConstants
 import com.example.movieslist.databinding.ActivityMainBinding
-import com.example.movieslist.networking.response.allmovies.AllMoviesResponse
-import com.example.movieslist.networking.response.main.movie.MovieResponse
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 
-
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MovieViewModel
-    lateinit var adpterMovie: AdpterMovie
-    lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MovieViewModel
+    private lateinit var adpterMovie: AdpterMovie
+    private lateinit var binding: ActivityMainBinding
     private val scope = CoroutineScope(newSingleThreadContext("scope"))
-    private lateinit var allMoviesResponse: AllMoviesResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val viewRoot = binding.root
         setContentView(viewRoot)
-        viewModel =  ViewModelProvider(this).get(MovieViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
 
         initScope()
 
@@ -44,20 +39,21 @@ class MainActivity : AppCompatActivity() {
         initObservables()
     }
 
-    fun initScope(){
+    private fun initScope() {
         scope.launch {
             viewModel.getMainMovie()
             viewModel.getAllMovie()
         }
     }
 
-    fun initObservables(){
+    private fun initObservables() {
         viewModel.mainMovie.observe(this, {
-            if (it != null){
-            binding.mainMovieTitle.text = it.title
-            binding.likesMainMovieTv.text = "${it.vote_count} ${getString(R.string.likes)}"
-            binding.popularutyTv.text = "${it.popularity} ${getString(R.string.views)}"
-            Picasso.get().load(AppConstants.BASEURLPHOTO + it.backdrop_path).into(binding.mainMovieLogo)
+            if (it != null) {
+                binding.mainMovieTitle.text = it.title
+                binding.likesMainMovieTv.text = "${it.vote_count} ${getString(R.string.likes)}"
+                binding.popularutyTv.text = "${it.popularity} ${getString(R.string.views)}"
+                Picasso.get().load(AppConstants.BASEURLPHOTO + it.backdrop_path)
+                    .into(binding.mainMovieLogo)
             }
         })
 
@@ -71,10 +67,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun configRecyclerView(adapter: AdpterMovie){
+    private fun configRecyclerView(adapter: AdpterMovie) {
         binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        binding.recyclerView.itemDecorationCount
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                applicationContext,
+                LinearLayoutManager.HORIZONTAL
+            )
+        )
+
     }
 
 
