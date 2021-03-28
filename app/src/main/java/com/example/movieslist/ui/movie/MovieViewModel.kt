@@ -23,6 +23,10 @@ class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel
     val similarMovies: MutableLiveData<List<Result>>
         get() = _similarMovies
 
+    private var _netWorkError = MutableLiveData<Boolean>()
+    val netWorkError: MutableLiveData<Boolean>
+        get() = _netWorkError
+
     suspend fun getMainMovie() {
         coroutineScope {
             try {
@@ -33,6 +37,7 @@ class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel
                     _error.value = response
                 }
             } catch (e: Exception) {
+                _netWorkError.postValue(true)
                 e.printStackTrace()
             }
         }

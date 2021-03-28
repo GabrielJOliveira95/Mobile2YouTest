@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.erro.observe(this, {
             Toast.makeText(applicationContext, it.message(), Toast.LENGTH_LONG).show()
         })
+        viewModel.netWorkError.observe(this, {
+            Toast.makeText(applicationContext, getString(R.string.error_conexao), Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun configRecyclerView(_adapter: AdpterMovie) {
