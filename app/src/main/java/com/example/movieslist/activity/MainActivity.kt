@@ -79,5 +79,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun setListeners(){
+        binding.likesMainMovieTv
+    }
+
 
 }
