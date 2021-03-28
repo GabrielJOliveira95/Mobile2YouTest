@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieslist.R
-import com.example.movieslist.utils.AppConstants
 import com.example.movieslist.data.networking.response.similarmovies.Result
+import com.example.movieslist.utils.AppConstants
 import com.example.movieslist.utils.ToGenres
-import com.example.movieslist.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_movies_list.view.*
 
@@ -37,8 +36,6 @@ class AdpterMovie(private val similarMoviesResponse: List<Result>) :
     override fun getItemCount(): Int {
         return similarMoviesResponse.size
     }
-
-
 }
 
 private fun getGenre(similarMovie: Result): String {

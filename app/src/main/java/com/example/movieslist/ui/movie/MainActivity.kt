@@ -1,15 +1,15 @@
 package com.example.movieslist.ui.movie
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieslist.R
-import com.example.movieslist.utils.AppConstants
-import com.example.movieslist.databinding.ActivityMainBinding
 import com.example.movieslist.data.repository.MoviesRepository
+import com.example.movieslist.databinding.ActivityMainBinding
+import com.example.movieslist.utils.AppConstants
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val viewRoot = binding.root
         setContentView(viewRoot)
-        viewModel = ViewModelProvider(this,factory).get(MovieViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MovieViewModel::class.java)
         initView()
     }
 
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         lifecycleScope.launch {
             viewModel.getMainMovie()
-            viewModel.getGenre()
+            viewModel.getSimilarMovies()
         }
     }
 

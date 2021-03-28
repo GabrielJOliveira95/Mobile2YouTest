@@ -3,8 +3,6 @@ package com.example.movieslist.ui.movie
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieslist.data.networking.response.genre.Genre
-import com.example.movieslist.data.networking.response.genre.GenreResponse
 import com.example.movieslist.data.networking.response.main.movie.MovieResponse
 import com.example.movieslist.data.networking.response.similarmovies.Result
 import com.example.movieslist.data.repository.MoviesRepository
@@ -25,13 +23,6 @@ class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel
     val similarMovies: MutableLiveData<List<Result>>
         get() = _similarMovies
 
-    private var _genreMovie = MutableLiveData<GenreResponse>()
-    val genreMovie: MutableLiveData<GenreResponse>
-        get() = _genreMovie
-
-    private lateinit var listOfGenres: List<Genre>
-
-
     suspend fun getMainMovie() {
         coroutineScope {
             try {
@@ -47,7 +38,7 @@ class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel
         }
     }
 
-    suspend fun getSimilarMovies(listOfGenres: List<Genre>) {
+    suspend fun getSimilarMovies() {
         coroutineScope {
             try {
                 val response = moviesRepository.getSimilarMovies()
@@ -60,19 +51,8 @@ class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel
         }
     }
 
-    suspend fun getGenre() {
-        try {
-            val response = moviesRepository.getMovieGenre()
-            if (response.isSuccessful) {
-                getSimilarMovies(response.body()?.genres?: mutableListOf())
-                _genreMovie.postValue(response.body())
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    class MovieViewModelFactory(private val moviesRepository: MoviesRepository): ViewModelProvider.Factory {
+    class MovieViewModelFactory(private val moviesRepository: MoviesRepository) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MovieViewModel(moviesRepository) as T
         }
