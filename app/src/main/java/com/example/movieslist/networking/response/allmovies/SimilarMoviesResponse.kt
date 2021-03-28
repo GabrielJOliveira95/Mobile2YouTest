@@ -1,6 +1,6 @@
 package com.example.movieslist.networking.response.allmovies
 
-data class AllMoviesResponse(
+data class SimilarMoviesResponse(
     val page: Int,
     val results: List<Result>,
     val total_pages: Int,

@@ -2,7 +2,7 @@ package com.example.movieslist.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.movieslist.networking.response.allmovies.AllMoviesResponse
+import com.example.movieslist.networking.response.allmovies.SimilarMoviesResponse
 import com.example.movieslist.networking.response.main.movie.MovieResponse
 import com.example.movieslist.repository.MoviesRepository
 import kotlinx.coroutines.coroutineScope
@@ -19,30 +19,35 @@ class MovieViewModel() : ViewModel() {
     val erro: MutableLiveData<Response<MovieResponse>>
         get() = _error
 
-    private var _allMovie = MutableLiveData<AllMoviesResponse>()
-    val allMovie: MutableLiveData<AllMoviesResponse>
-        get() = _allMovie
+    private var _similarMovies = MutableLiveData<SimilarMoviesResponse>()
+    val similarMovies: MutableLiveData<SimilarMoviesResponse>
+        get() = _similarMovies
 
     suspend fun getMainMovie() {
         coroutineScope {
-            val response = moviesRepository.getMainMovie()
-
-            if (response?.isSuccessful!!) {
-                _mainMovie.postValue(response.body())
-            } else {
-                _error.value = response
+            try {
+                val response = moviesRepository.getMainMovie()
+                if (response.isSuccessful) {
+                    _mainMovie.postValue(response.body())
+                } else {
+                    _error.value = response
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
-    suspend fun getAllMovie() {
+    suspend fun getSimilarMovies() {
         coroutineScope {
-            val response = moviesRepository.getAllMovies()
-
-            if (response.isSuccessful){
-                _allMovie.postValue(response.body())
+            try {
+                val response = moviesRepository.getAllMovies()
+                if (response.isSuccessful) {
+                    _similarMovies.postValue(response.body())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-
         }
     }
 }

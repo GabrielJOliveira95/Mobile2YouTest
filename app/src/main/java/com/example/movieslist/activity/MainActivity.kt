@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private fun initScope() {
         scope.launch {
             viewModel.getMainMovie()
-            viewModel.getAllMovie()
+            viewModel.getSimilarMovies()
         }
     }
 
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.allMovie.observe(this, {
+        viewModel.similarMovies.observe(this, {
             adpterMovie = AdpterMovie(it)
             configRecyclerView(adpterMovie)
         })

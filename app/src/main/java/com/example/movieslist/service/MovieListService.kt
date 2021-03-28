@@ -1,7 +1,7 @@
 package com.example.movieslist.service
 
 import com.example.movieslist.constants.AppConstants
-import com.example.movieslist.networking.response.allmovies.AllMoviesResponse
+import com.example.movieslist.networking.response.allmovies.SimilarMoviesResponse
 import com.example.movieslist.networking.response.main.movie.MovieResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -18,5 +18,5 @@ interface MovieListService {
    suspend fun getListMovie(
       @Path("movie_id") movie_id: Int = AppConstants.MOVIEID,
       @Query("api_key") api_key: String = AppConstants.APIKEY
-   ): Response<AllMoviesResponse>
+   ): Response<SimilarMoviesResponse>
 }
