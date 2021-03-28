@@ -8,7 +8,6 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
-import com.squareup.picasso.BuildConfig
 
 class Retrofit {
     private val gsonBuilder = GsonBuilder()
@@ -21,7 +20,7 @@ class Retrofit {
 
 
         return Retrofit.Builder()
-            .baseUrl(AppConstants.BASEURL)
+            .baseUrl(AppConstants.BASE_URL)
             .client(client.build())
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
             .build().create(MovieListService::class.java)

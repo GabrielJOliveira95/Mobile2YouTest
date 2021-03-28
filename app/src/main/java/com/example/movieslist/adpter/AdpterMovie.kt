@@ -15,7 +15,7 @@ class AdpterMovie(private val similarMoviesResponse: SimilarMoviesResponse) : Re
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(result: Result) {
-            Picasso.get().load(AppConstants.BASEURLPHOTO + result.backdrop_path).into(itemView.movieLogo)
+            Picasso.get().load(AppConstants.BASE_URL_PHOTO + result.backdrop_path).into(itemView.movieLogo)
             itemView.movieTitle.text = result.title
             itemView.movieDescription.text = result.overview
         }

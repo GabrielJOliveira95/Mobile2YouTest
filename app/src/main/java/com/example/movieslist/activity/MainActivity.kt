@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 binding.mainMovieTitle.text = it.title
                 binding.likesMainMovieTv.text = "${it.vote_count} ${getString(R.string.likes)}"
                 binding.popularutyTv.text = "${it.popularity} ${getString(R.string.views)}"
-                Picasso.get().load(AppConstants.BASEURLPHOTO + it.backdrop_path)
+                Picasso.get().load(AppConstants.BASE_URL_PHOTO + it.backdrop_path)
                     .into(binding.mainMovieLogo)
             }
         })
