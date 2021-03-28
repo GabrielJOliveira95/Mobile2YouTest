@@ -2,25 +2,25 @@ package com.example.movieslist.utils
 
 enum class ToGenres constructor(val value : Int)
 {
-    Ação(28),
-    Aventura(12),
-    Animação(16),
-    Comédia(35),
+    Action(28),
+    Adventure(12),
+    Animation(16),
+    Comedy(35),
     Crime(80),
-    Documentário(99),
+    Documentary(99),
     Drama(18),
-    Familia(10751),
-    Fantasia(14),
-    História(36),
+    Family(10751),
+    Fantasy(14),
+    History(36),
     Horror(27),
-    Música(10402),
-    Mistério(9648),
+    Music(10402),
+    Mystery(9648),
     Romance(10749),
-    Ficção_Científica(10749),
-    FIlme_de_TV(878),
-    Suspense(53),
-    Guerra(10752),
-    Ocidental(37);
+    Science_Fiction(10749),
+    TV_Movie(878),
+    Thriller(53),
+    War(10752),
+    Western(37);
 
     companion object {
         operator fun invoke(rawValue: Int) = values().find {

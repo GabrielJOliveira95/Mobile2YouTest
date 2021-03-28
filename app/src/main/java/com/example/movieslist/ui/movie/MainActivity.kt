@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             hasFixedSize()
             adapter = _adapter
             layoutManager = LinearLayoutManager(applicationContext)
-            addItemDecoration(DividerItemDecoration(applicationContext, LinearLayoutManager.HORIZONTAL))
         }
     }
 
