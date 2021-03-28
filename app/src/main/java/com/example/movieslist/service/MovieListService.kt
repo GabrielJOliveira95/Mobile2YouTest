@@ -10,12 +10,13 @@ interface MovieListService {
 
    @GET("movie/{movie_id}")
    suspend fun getMainMovie(
-      @Path("movie_id") movie_id: Int = 550,
+      @Path("movie_id") movie_id: Int = AppConstants.MOVIEID,
       @Query("api_key") api_key: String = AppConstants.APIKEY
    ): Response<MovieResponse>
 
-   @GET("movie/popular")
+   @GET("movie/{movie_id}/similar")
    suspend fun getListMovie(
+      @Path("movie_id") movie_id: Int = AppConstants.MOVIEID,
       @Query("api_key") api_key: String = AppConstants.APIKEY
    ): Response<AllMoviesResponse>
 }
