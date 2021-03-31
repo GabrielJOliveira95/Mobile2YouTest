@@ -1,5 +1,6 @@
 package com.example.movieslist.ui.movie
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,19 +13,19 @@ import retrofit2.Response
 class MovieViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
     private var _mainMovie = MutableLiveData<MovieResponse>()
-    val mainMovie: MutableLiveData<MovieResponse>
+    val mainMovie: LiveData<MovieResponse>
         get() = _mainMovie
 
     private var _error = MutableLiveData<Response<MovieResponse>>()
-    val erro: MutableLiveData<Response<MovieResponse>>
+    val erro: LiveData<Response<MovieResponse>>
         get() = _error
 
     private var _similarMovies = MutableLiveData<List<Result>>()
-    val similarMovies: MutableLiveData<List<Result>>
+    val similarMovies: LiveData<List<Result>>
         get() = _similarMovies
 
     private var _netWorkError = MutableLiveData<Boolean>()
-    val netWorkError: MutableLiveData<Boolean>
+    val netWorkError: LiveData<Boolean>
         get() = _netWorkError
 
     suspend fun getMainMovie() {
